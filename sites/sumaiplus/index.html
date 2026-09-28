@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SumaiPLUS</title>
+<meta name="description" content="地元のリフォーム会社・工務店を無料で紹介。審査済みのプロから見積もりを取り寄せて比較できるリフォーム相談サービスです。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=JetBrains+Mono:wght@500&family=Zen+Kaku+Gothic+New:wght@700;900&display=swap">
+<style>
+:root {
+  --ground: #f2f5f4;
+  --surface: #ffffff;
+  --ink: #16242a;
+  --muted: #56676d;
+  --line: #d5dedd;
+  --grid: #e1e8e7;
+  --ai: #24467a;
+  --ai-soft: #e3eaf5;
+  --hinoki: #b8904a;
+  --on-ai: #ffffff;
+  --room: #ffffff;
+  --room-hot: #d7e2f3;
+  --font-display: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  --font-body: "BIZ UDPGothic", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --wrap: 1120px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ground: #0f181c;
+    --surface: #16232a;
+    --ink: #e6eeef;
+    --muted: #9aadb2;
+    --line: #2a3b42;
+    --grid: #1c2a30;
+    --ai: #8fb0e6;
+    --ai-soft: #1c2c45;
+    --hinoki: #d6b273;
+    --on-ai: #0f181c;
+    --room: #16232a;
+    --room-hot: #243a5c;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground: #0f181c;
+  --surface: #16232a;
+  --ink: #e6eeef;
+  --muted: #9aadb2;
+  --line: #2a3b42;
+  --grid: #1c2a30;
+  --ai: #8fb0e6;
+  --ai-soft: #1c2c45;
+  --hinoki: #d6b273;
+  --on-ai: #0f181c;
+  --room: #16232a;
+  --room-hot: #243a5c;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; }
+a { color: var(--ai); }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--ai);
+  outline-offset: 2px;
+}
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.35; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+.wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: 20px; }
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--hinoki);
+}
+.section { padding-block: 88px; border-top: 1px solid var(--line); }
+.section-head { display: grid; gap: 12px; max-width: 40em; margin-bottom: 44px; }
+.section-head h2 { font-size: clamp(26px, 3.4vw, 36px); font-weight: 900; }
+.section-head p { color: var(--muted); }
+
+/* header */
+.site-header {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 10;
+  background: color-mix(in srgb, var(--ground) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 64px; }
+.logo { font-family: var(--font-display); font-weight: 900; font-size: 22px; color: var(--ink); text-decoration: none; letter-spacing: .01em; }
+.logo b { color: var(--ai); }
+.nav { display: flex; gap: 24px; align-items: center; }
+.nav a { color: var(--ink); text-decoration: none; font-size: 14px; }
+.nav a:hover { color: var(--ai); }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px 22px;
+  border-radius: 4px;
+  border: 1px solid var(--ai);
+  background: var(--ai);
+  color: var(--on-ai);
+  font: 700 15px/1.2 var(--font-body);
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn:hover { filter: brightness(1.08); }
+.btn.ghost { background: transparent; color: var(--ai); }
+.nav .btn { padding: 9px 16px; font-size: 14px; color: var(--on-ai); }
+@media (max-width: 760px) { .nav a:not(.btn) { display: none; } }
+
+/* hero */
+.hero { padding-block: 64px 80px; }
+.hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; }
+.hero h1 { font-size: clamp(32px, 5vw, 54px); font-weight: 900; letter-spacing: -.01em; }
+.hero h1 .plus { color: var(--ai); white-space: nowrap; }
+.hero-copy { display: grid; gap: 24px; }
+.hero-copy .lead { font-size: 17px; color: var(--muted); max-width: 30em; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-note { font-size: 13px; color: var(--muted); display: flex; gap: 18px; flex-wrap: wrap; }
+.hero-note span::before { content: "✓ "; color: var(--ai); font-weight: 700; }
+
+.plan {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 18px 18px 12px;
+}
+.plan svg { display: block; width: 100%; height: auto; }
+.plan .gridline { stroke: var(--grid); stroke-width: 1; }
+.plan .wall { fill: none; stroke: var(--ink); stroke-width: 4; }
+.plan .room { fill: var(--room); stroke: var(--ink); stroke-width: 1.5; transition: fill .2s; }
+.plan a .room { fill: var(--room-hot); }
+.plan a:hover .room, .plan a:focus .room { fill: var(--ai-soft); stroke: var(--ai); }
+.plan .exterior { fill: none; stroke: var(--ai); stroke-width: 1.5; stroke-dasharray: 6 5; }
+.plan text { font-family: var(--font-body); font-size: 11px; fill: var(--ink); }
+.plan text.dim { font-family: var(--font-mono); font-size: 9px; fill: var(--muted); }
+.plan text.tag { font-weight: 700; fill: var(--ai); font-size: 11px; }
+.plan figcaption { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); margin-top: 10px; padding-top: 8px; }
+.plan figcaption .mono { font-family: var(--font-mono); }
+@media (max-width: 860px) { .hero .wrap { grid-template-columns: 1fr; gap: 40px; } }
+
+/* flow */
+.flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+.flow li { padding: 28px 24px; display: grid; gap: 10px; align-content: start; border-left: 1px solid var(--line); }
+.flow li:first-child { border-left: 0; }
+.flow .step { font-family: var(--font-mono); font-size: 13px; color: var(--hinoki); }
+.flow h3 { font-size: 19px; font-weight: 700; }
+.flow p { font-size: 14px; color: var(--muted); }
+.flow .free { justify-self: start; font-size: 12px; font-weight: 700; color: var(--ai); background: var(--ai-soft); padding: 2px 8px; border-radius: 3px; }
+@media (max-width: 860px) {
+  .flow { grid-template-columns: 1fr 1fr; }
+  .flow li:nth-child(3) { border-left: 0; }
+  .flow li:nth-child(n+3) { border-top: 1px solid var(--line); }
+}
+@media (max-width: 520px) {
+  .flow { grid-template-columns: 1fr; }
+  .flow li { border-left: 0; }
+  .flow li + li { border-top: 1px solid var(--line); }
+}
+
+/* services */
+.services { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.svc { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 28px; display: grid; gap: 14px; align-content: start; scroll-margin-top: 90px; }
+.svc:target { border-color: var(--ai); box-shadow: 0 0 0 3px var(--ai-soft); }
+.svc-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.svc h3 { font-size: 22px; font-weight: 900; }
+.svc .where { font-family: var(--font-mono); font-size: 11px; color: var(--muted); white-space: nowrap; }
+.svc p { color: var(--muted); font-size: 15px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
+.chips li { font-size: 13px; border: 1px solid var(--line); border-radius: 3px; padding: 2px 10px; }
+.svc a.more { font-size: 14px; font-weight: 700; text-decoration: none; }
+.svc a.more:hover { text-decoration: underline; }
+@media (max-width: 760px) { .services { grid-template-columns: 1fr; } }
+
+/* screening */
+.screen { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+.checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 2px solid var(--ink); }
+.checks li { display: grid; grid-template-columns: 36px 1fr; gap: 12px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.checks .mark { width: 28px; height: 28px; border: 2px solid var(--ai); border-radius: 50%; display: grid; place-items: center; color: var(--ai); font-weight: 700; font-size: 14px; margin-top: 2px; }
+.checks h3 { font-size: 17px; font-weight: 700; }
+.checks p { font-size: 14px; color: var(--muted); }
+.criteria { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 28px; display: grid; gap: 18px; }
+.criteria h3 { font-size: 18px; font-weight: 700; }
+.criteria dl { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 12px 20px; }
+.criteria dt { font-weight: 700; color: var(--ai); }
+.criteria dd { margin: 0; font-size: 14px; color: var(--muted); }
+@media (max-width: 860px) { .screen { grid-template-columns: 1fr; gap: 36px; } }
+
+/* area */
+.area-box { display: grid; grid-template-columns: 1fr 1.4fr; gap: 40px; align-items: start; }
+.area-form { display: grid; gap: 12px; }
+.area-form label { font-weight: 700; font-size: 14px; }
+.area-row { display: flex; gap: 10px; flex-wrap: wrap; }
+select, input, textarea {
+  font: 16px/1.5 var(--font-body);
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 10px 12px;
+  width: 100%;
+}
+.area-row select { flex: 1 1 200px; width: auto; }
+.regions { display: grid; gap: 14px; }
+.region { display: grid; grid-template-columns: 7em 1fr; gap: 12px; font-size: 14px; padding-bottom: 12px; border-bottom: 1px dashed var(--line); }
+.region strong { font-family: var(--font-display); }
+.region .prefs { display: flex; flex-wrap: wrap; gap: 4px 12px; }
+.region button { background: none; border: 0; padding: 0; font: inherit; color: var(--ai); cursor: pointer; }
+.region button:hover { text-decoration: underline; }
+.area-result { font-size: 14px; color: var(--muted); min-height: 1.8em; }
+.area-result b { color: var(--ink); }
+@media (max-width: 860px) { .area-box { grid-template-columns: 1fr; } }
+@media (max-width: 480px) { .region { grid-template-columns: 1fr; gap: 4px; } }
+
+/* contact */
+.contact { display: grid; grid-template-columns: 1fr 1.3fr; gap: 48px; align-items: start; }
+.contact-side { display: grid; gap: 20px; }
+.contact-side .tel { font-family: var(--font-mono); font-size: 22px; color: var(--ink); user-select: all; }
+.contact-side small { color: var(--muted); font-size: 13px; }
+form.inquiry { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 28px; display: grid; gap: 18px; }
+.field { display: grid; gap: 6px; }
+.field label { font-weight: 700; font-size: 14px; }
+.field .req { font-size: 11px; color: var(--on-ai); background: var(--ai); padding: 1px 6px; border-radius: 3px; margin-left: 6px; vertical-align: 1px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.types { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 14px; }
+.types label { display: inline-flex; align-items: center; gap: 6px; font-weight: 400; }
+.types input { width: auto; }
+.form-msg { font-size: 14px; padding: 12px 14px; border-radius: 4px; background: var(--ai-soft); color: var(--ink); }
+.form-msg.err { background: transparent; border: 1px solid #c0392b; color: var(--ink); }
+@media (max-width: 860px) { .contact { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .field-row { grid-template-columns: 1fr; } }
+
+/* company */
+.company { overflow-x: auto; }
+.company table { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 0; }
+.company th, .company td { text-align: left; padding: 14px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.company th { width: 9em; color: var(--muted); font-weight: 700; white-space: nowrap; }
+.placeholder { color: var(--muted); font-style: normal; border-bottom: 1px dashed var(--muted); }
+
+footer { border-top: 1px solid var(--line); padding-block: 36px; font-size: 13px; color: var(--muted); }
+footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
+footer a { color: var(--muted); text-decoration: none; }
+footer a:hover { color: var(--ai); }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+html { scroll-behavior: smooth; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="#top">Sumai<b>PLUS</b></a>
+    <nav class="nav" aria-label="メインメニュー">
+      <a href="#about">SumaiPLUSとは</a>
+      <a href="#services">リフォームの種類</a>
+      <a href="#area">地域から探す</a>
+      <a href="#company">運営者情報</a>
+      <a class="btn" href="#contact">無料で相談する</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">Local Reform Matching</p>
+        <h1>いつもの住まいに、<br>地元のプロで<span class="plus">＋ひとつ</span>。</h1>
+        <p class="lead">SumaiPLUSは、地域のリフォーム会社・工務店とお客様をつなぐ無料の相談・一括見積もりサービスです。施工実績と対応を確かめた会社だけをご紹介します。</p>
+        <div class="hero-actions">
+          <a class="btn" href="#contact">無料で見積もりを依頼する</a>
+          <a class="btn ghost" href="#area">地域から会社を探す</a>
+        </div>
+        <p class="hero-note"><span>相談・紹介は無料</span><span>審査済みの会社のみ</span><span>断るのも自由</span></p>
+      </div>
+
+      <figure class="plan" aria-label="間取り図からリフォーム箇所を選ぶ">
+        <svg viewBox="0 0 360 290" role="img" aria-labelledby="plan-title">
+          <title id="plan-title">3LDKの間取り図。浴室、LDK、外壁をクリックすると対応するリフォームの説明に移動します。</title>
+          <g>
+            <line class="gridline" x1="40" y1="30" x2="40" y2="250"/><line class="gridline" x1="80" y1="30" x2="80" y2="250"/>
+            <line class="gridline" x1="120" y1="30" x2="120" y2="250"/><line class="gridline" x1="160" y1="30" x2="160" y2="250"/>
+            <line class="gridline" x1="200" y1="30" x2="200" y2="250"/><line class="gridline" x1="240" y1="30" x2="240" y2="250"/>
+            <line class="gridline" x1="280" y1="30" x2="280" y2="250"/><line class="gridline" x1="320" y1="30" x2="320" y2="250"/>
+            <line class="gridline" x1="30" y1="70" x2="330" y2="70"/><line class="gridline" x1="30" y1="110" x2="330" y2="110"/>
+            <line class="gridline" x1="30" y1="150" x2="330" y2="150"/><line class="gridline" x1="30" y1="190" x2="330" y2="190"/>
+            <line class="gridline" x1="30" y1="230" x2="330" y2="230"/>
+          </g>
+          <a href="#svc-exterior"><rect class="exterior" x="20" y="20" width="320" height="240" rx="2"/><text class="tag" x="248" y="276">外壁・屋根 →</text></a>
+          <a href="#svc-full"><rect class="room" x="40" y="30" width="160" height="120"/><text x="100" y="86">LDK</text><text class="dim" x="92" y="100">16帖</text></a>
+          <a href="#svc-bath"><rect class="room" x="200" y="30" width="60" height="60"/><text x="216" y="62">浴室</text></a>
+          <rect class="room" x="260" y="30" width="60" height="60"/><text x="276" y="62">洗面</text>
+          <rect class="room" x="200" y="90" width="120" height="80"/><text x="244" y="130">洋室</text><text class="dim" x="243" y="144">6帖</text>
+          <rect class="room" x="40" y="150" width="60" height="100"/><text x="56" y="204">玄関</text>
+          <rect class="room" x="100" y="150" width="100" height="100"/><text x="136" y="198">和室</text><text class="dim" x="136" y="212">6畳</text>
+          <rect class="room" x="200" y="170" width="120" height="80"/><text x="244" y="206">洋室</text><text class="dim" x="240" y="220">5.5帖</text>
+          <rect class="wall" x="40" y="30" width="280" height="220"/>
+          <text class="dim" x="24" y="276">← 7,280 mm（8間 × 910）→</text>
+        </svg>
+        <figcaption><span>色のついた場所を押すと、その工事の説明へ</span><span class="mono">1マス = 910mm</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">How it works</p>
+        <h2>ご相談から工事まで、4つのステップ</h2>
+        <p>工事の内容が決まっていなくても大丈夫です。お住まいの地域と気になる箇所を伝えるだけで、合いそうな会社をご案内します。</p>
+      </div>
+      <ol class="flow">
+        <li><span class="step">STEP 1</span><h3>相談する</h3><p>フォームか電話で、地域・場所・ご予算の目安を伝えます。</p><span class="free">無料</span></li>
+        <li><span class="step">STEP 2</span><h3>会社の紹介</h3><p>審査を通った地元の会社から、内容に合う数社をご紹介します。</p><span class="free">無料</span></li>
+        <li><span class="step">STEP 3</span><h3>見積もりを比べる</h3><p>現地調査のうえ届いた見積もりを、価格と提案の両方で比べます。</p><span class="free">無料</span></li>
+        <li><span class="step">STEP 4</span><h3>契約・工事</h3><p>納得できた会社とだけ契約します。合わなければ断ってかまいません。</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Services</p>
+        <h2>リフォームの種類</h2>
+        <p>水まわりの交換から建て替えまで、住まいの工事をまとめてご相談いただけます。</p>
+      </div>
+      <div class="services">
+        <article class="svc" id="svc-full">
+          <div class="svc-top"><h3>全面リフォーム</h3><span class="where">FULL RENOVATION</span></div>
+          <p>間取りの変更や内装・設備の一新など、住まい全体を今の暮らしに合わせてつくり直します。</p>
+          <ul class="chips"><li>間取り変更</li><li>内装</li><li>断熱・耐震</li></ul>
+          <a class="more" href="#contact">全面リフォームを相談する →</a>
+        </article>
+        <article class="svc" id="svc-exterior">
+          <div class="svc-top"><h3>外装リフォーム</h3><span class="where">EXTERIOR</span></div>
+          <p>外壁や屋根の塗装・張り替えで、雨風から家を守り、見た目も新しくします。</p>
+          <ul class="chips"><li>外壁塗装</li><li>屋根</li><li>雨どい</li></ul>
+          <a class="more" href="#contact">外装リフォームを相談する →</a>
+        </article>
+        <article class="svc" id="svc-bath">
+          <div class="svc-top"><h3>お風呂リフォーム</h3><span class="where">BATHROOM</span></div>
+          <p>ユニットバスの交換や段差の解消など、毎日使う浴室を安全で快適にします。</p>
+          <ul class="chips"><li>ユニットバス交換</li><li>バリアフリー</li><li>浴室暖房</li></ul>
+          <a class="more" href="#contact">お風呂リフォームを相談する →</a>
+        </article>
+        <article class="svc" id="svc-new">
+          <div class="svc-top"><h3>新築・増改築工事</h3><span class="where">NEW BUILD</span></div>
+          <p>住宅から集合住宅、店舗まで、建て替えや増築を含めた建築工事に対応する会社をご紹介します。</p>
+          <ul class="chips"><li>注文住宅</li><li>アパート・マンション建築</li><li>商業施設</li><li>増築</li><li>建て替え</li></ul>
+          <a class="more" href="#contact">新築・増改築を相談する →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="screening">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Screening</p>
+        <h2>ご紹介する会社は、3つの確認を通っています</h2>
+        <p>リフォームは工事が終わってからが本番です。長く付き合える会社かどうかを、紹介の前に確かめています。</p>
+      </div>
+      <div class="screen">
+        <ul class="checks">
+          <li><span class="mark">1</span><div><h3>施工実績</h3><p>これまでの工事の内容と件数を確認します。</p></div></li>
+          <li><span class="mark">2</span><div><h3>対応の品質</h3><p>問い合わせへの返答、説明のわかりやすさ、現場での対応を確認します。</p></div></li>
+          <li><span class="mark">3</span><div><h3>過去のトラブル</h3><p>お客様との大きなトラブルがないかを確認します。</p></div></li>
+        </ul>
+        <div class="criteria">
+          <h3>さらに、5つの観点で選んでいます</h3>
+          <dl>
+            <dt>技術力</dt><dd>仕上がりの精度と、資格を持つ職人の在籍</dd>
+            <dt>提案力</dt><dd>暮らし方やご予算に合わせた複数の案</dd>
+            <dt>価格</dt><dd>内訳がわかる、地域の相場に沿った見積もり</dd>
+            <dt>評判</dt><dd>地域での口コミと紹介のされ方</dd>
+            <dt>アフター</dt><dd>工事後の点検と、不具合への対応</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="area">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Area</p>
+        <h2>地域から加盟店を探す</h2>
+        <p>お住まいの都道府県を選ぶと、その地域の加盟店一覧に進みます。</p>
+      </div>
+      <div class="area-box">
+        <form class="area-form" id="area-form">
+          <label for="pref">都道府県</label>
+          <div class="area-row">
+            <select id="pref" name="pref"></select>
+            <button class="btn" type="submit">探す</button>
+          </div>
+          <p class="area-result" id="area-result" aria-live="polite"></p>
+        </form>
+        <div class="regions" id="regions"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="wrap contact">
+      <div class="contact-side">
+        <div class="section-head" style="margin-bottom:0">
+          <p class="eyebrow">Contact</p>
+          <h2>お見積り・お問い合わせ</h2>
+          <p>入力は2分ほどで終わります。内容を確認し、担当者からご連絡します。</p>
+        </div>
+        <div>
+          <p style="font-size:14px;font-weight:700">お電話でのご相談</p>
+          <p class="tel">00-0000-0000</p>
+          <small>電話番号は公開前に差し替えてください。</small>
+        </div>
+      </div>
+
+      <form class="inquiry" id="inquiry" novalidate>
+        <div class="field-row">
+          <div class="field"><label for="name">お名前<span class="req">必須</span></label><input id="name" name="name" autocomplete="name" placeholder="住まい 太郎"></div>
+          <div class="field"><label for="zip">郵便番号<span class="req">必須</span></label><input id="zip" name="zip" inputmode="numeric" autocomplete="postal-code" placeholder="150-0000"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="email">メールアドレス<span class="req">必須</span></label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com"></div>
+          <div class="field"><label for="tel">電話番号</label><input id="tel" name="tel" type="tel" autocomplete="tel" placeholder="090-0000-0000"></div>
+        </div>
+        <fieldset class="field" style="border:0;padding:0;margin:0">
+          <legend style="font-weight:700;font-size:14px;margin-bottom:6px">ご希望のリフォーム</legend>
+          <div class="types">
+            <label><input type="checkbox" id="t-full" name="type" value="全面リフォーム"> 全面リフォーム</label>
+            <label><input type="checkbox" id="t-ext" name="type" value="外装リフォーム"> 外装リフォーム</label>
+            <label><input type="checkbox" id="t-bath" name="type" value="お風呂リフォーム"> お風呂リフォーム</label>
+            <label><input type="checkbox" id="t-new" name="type" value="新築・増改築"> 新築・増改築</label>
+            <label><input type="checkbox" id="t-other" name="type" value="その他"> その他</label>
+          </div>
+        </fieldset>
+        <div class="field"><label for="budget">ご予算の目安</label>
+          <select id="budget" name="budget">
+            <option value="">未定</option>
+            <option>50万円未満</option>
+            <option>50〜100万円</option>
+            <option>100〜300万円</option>
+            <option>300〜1,000万円</option>
+            <option>1,000万円以上</option>
+          </select>
+        </div>
+        <div class="field"><label for="msg">ご相談内容</label><textarea id="msg" name="msg" rows="4" placeholder="例：築25年の戸建て。浴室をユニットバスに交換したい。"></textarea></div>
+        <p class="form-msg" id="form-msg" hidden aria-live="polite"></p>
+        <button class="btn" type="submit">入力内容を確認する</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="section" id="company">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Company</p>
+        <h2>運営者情報</h2>
+      </div>
+      <div class="company">
+        <table>
+          <tbody>
+            <tr><th>サービス名</th><td>SumaiPLUS（スマイプラス）</td></tr>
+            <tr><th>運営会社</th><td><em class="placeholder">株式会社〇〇〇〇</em></td></tr>
+            <tr><th>所在地</th><td><em class="placeholder">〒000-0000 〇〇県〇〇市〇〇 0-0-0</em></td></tr>
+            <tr><th>電話番号</th><td><em class="placeholder">00-0000-0000</em></td></tr>
+            <tr><th>メール</th><td><em class="placeholder">info@example.com</em></td></tr>
+            <tr><th>事業内容</th><td>リフォーム・リノベーションの相談受付、リフォーム会社・工務店の紹介、一括見積もりサービスの運営</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <nav aria-label="フッターメニュー">
+      <a href="#about">SumaiPLUSとは</a>
+      <a href="#services">リフォームの種類</a>
+      <a href="#area">加盟店</a>
+      <a href="#contact">お問い合わせ</a>
+      <a href="#company">運営者情報</a>
+    </nav>
+    <span>© SumaiPLUS</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var REGIONS = [
+    ["北海道・東北", ["北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県"]],
+    ["関東", ["茨城県", "栃木県", "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県"]],
+    ["中部", ["新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県", "岐阜県", "静岡県", "愛知県"]],
+    ["近畿", ["三重県", "滋賀県", "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県"]],
+    ["中国・四国", ["鳥取県", "島根県", "岡山県", "広島県", "山口県", "徳島県", "香川県", "愛媛県", "高知県"]],
+    ["九州・沖縄", ["福岡県", "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"]]
+  ];
+  var select = document.getElementById("pref");
+  var regions = document.getElementById("regions");
+  var result = document.getElementById("area-result");
+
+  var first = document.createElement("option");
+  first.value = ""; first.textContent = "選択してください";
+  select.appendChild(first);
+
+  REGIONS.forEach(function (r) {
+    var group = document.createElement("optgroup");
+    group.label = r[0];
+    var row = document.createElement("div");
+    row.className = "region";
+    var name = document.createElement("strong");
+    name.textContent = r[0];
+    var prefs = document.createElement("div");
+    prefs.className = "prefs";
+    r[1].forEach(function (p) {
+      var o = document.createElement("option");
+      o.value = p; o.textContent = p;
+      group.appendChild(o);
+      var b = document.createElement("button");
+      b.type = "button"; b.textContent = p;
+      b.addEventListener("click", function () { select.value = p; show(p); });
+      prefs.appendChild(b);
+    });
+    select.appendChild(group);
+    row.appendChild(name); row.appendChild(prefs);
+    regions.appendChild(row);
+  });
+
+  function show(p) {
+    if (!p) { result.textContent = "都道府県を選んでください。"; return; }
+    result.innerHTML = "";
+    var b = document.createElement("b"); b.textContent = p;
+    result.appendChild(b);
+    result.appendChild(document.createTextNode(" の加盟店ページは準備中です。お急ぎの方は下のフォームからご相談ください。"));
+  }
+  document.getElementById("area-form").addEventListener("submit", function (e) {
+    e.preventDefault(); show(select.value);
+  });
+
+  var form = document.getElementById("inquiry");
+  var msg = document.getElementById("form-msg");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var missing = [];
+    if (!form.name.value.trim()) missing.push("お名前");
+    if (!/^\d{3}-?\d{4}$/.test(form.zip.value.trim())) missing.push("郵便番号（例：150-0000）");
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email.value.trim())) missing.push("メールアドレス");
+    msg.hidden = false;
+    if (missing.length) {
+      msg.className = "form-msg err";
+      msg.textContent = "次の項目を確認してください：" + missing.join("、");
+      return;
+    }
+    var types = Array.prototype.filter.call(form.querySelectorAll('input[name="type"]'), function (c) { return c.checked; })
+      .map(function (c) { return c.value; });
+    msg.className = "form-msg";
+    msg.textContent = form.name.value.trim() + " 様　ご希望：" + (types.join("・") || "未選択") +
+      "　ご予算：" + (form.budget.value || "未定") + "。このページは見本のため、送信はまだ行われません。";
+  });
+})();
+</script>
+</body>
+</html>
