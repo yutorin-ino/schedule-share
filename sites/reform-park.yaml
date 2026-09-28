@@ -1,0 +1,72 @@
+# リフォームパーク (reform-park.jp) サイト情報
+# 出典: Web検索結果（2026-09-28時点）。サイトへの直接アクセスは不可だったため、
+# 未確認の項目は null としている。
+
+site:
+  name: リフォームパーク
+  url: https://reform-park.jp/
+  title: 地元のリフォーム・リノベーション相談はリフォームパークへ
+  language: ja
+  category: リフォーム一括見積もり・業者紹介サイト
+  description: >-
+    地元のプロに特化した一括見積もりサイト。地元のお客様と地元のプロをつなぐ。
+    施工実績・対応品質・過去のトラブルの有無を確認した、信頼できるリフォーム店を
+    無料で紹介する。
+
+operator:
+  name: null # 運営会社名は未確認（運営者情報ページ参照）
+  info_page: https://reform-park.jp/company/
+  address:
+    postal_code: "150-0022"
+    prefecture: 東京都
+    city: 渋谷区
+    street: 恵比寿南3-2-19
+    building: エスペランサ恵比寿 3F
+  phone: "03-6277-5588"
+  email: reformpark2023@gmail.com
+
+features:
+  - 地元のプロから無料で見積もりが取れる
+  - 施工実績・対応品質・過去のトラブルの有無を確認した業者のみを紹介
+  - 技術力・提案力・価格・評判・アフターサービスで厳選した職人
+
+services:
+  - name: 全面リフォーム（フルリノベーション）
+    url: https://reform-park.jp/reform/full_renovation/
+  - name: 外装リフォーム
+    url: https://reform-park.jp/reform/exterior/
+  - name: お風呂リフォーム
+    url: https://reform-park.jp/reform/bath/
+  - name: 新築・増改築工事
+    url: https://reform-park.jp/reform/new_construction/
+    scope:
+      - 注文住宅
+      - アパート・マンション建築
+      - 商業施設
+      - 増築
+      - 建て替え
+
+pages:
+  top: https://reform-park.jp/
+  about: https://reform-park.jp/about/
+  merchants: https://reform-park.jp/merchant/
+  contact: https://reform-park.jp/contact/
+  company: https://reform-park.jp/company/
+  sitemap: https://reform-park.jp/sitemap/
+
+area_pages:
+  base_url: https://reform-park.jp/area/{prefecture}/
+  examples:
+    - { prefecture: 北海道, url: https://reform-park.jp/area/hokkaido/ }
+    - { prefecture: 千葉県, url: https://reform-park.jp/area/chiba/ }
+    - { prefecture: 神奈川県, url: https://reform-park.jp/area/kanagawa/ }
+    - { prefecture: 静岡県, url: https://reform-park.jp/area/shizuoka/ }
+    - { prefecture: 大阪府, url: https://reform-park.jp/area/osaka/ }
+    - { prefecture: 広島県, url: https://reform-park.jp/area/hiroshima/ }
+    - { prefecture: 福岡県, url: https://reform-park.jp/area/fukuoka/ }
+    - { prefecture: 熊本県, url: https://reform-park.jp/area/kumamoto/ }
+
+contact:
+  form: https://reform-park.jp/contact/
+  phone: "03-6277-5588"
+  email: reformpark2023@gmail.com
